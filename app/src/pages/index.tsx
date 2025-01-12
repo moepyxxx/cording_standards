@@ -1,20 +1,38 @@
-import type { HeadFC, PageProps } from "gatsby";
+import { graphql, type HeadFC, type PageProps } from "gatsby";
 import type { FC } from "react";
+import Seo from "../components/seo";
 
-const pageStyles = {
-  color: "#232129",
-  padding: 96,
-  fontFamily: "-apple-system, Roboto, sans-serif, serif",
+type QueryData = {
+  allFile: {
+    nodes: {
+      name: string;
+    }[];
+  };
 };
 
-const IndexPage: FC<PageProps> = () => {
+const IndexPage: FC<PageProps<QueryData>> = ({ data }) => {
   return (
-    <main style={pageStyles}>
-      <p>hoge</p>
+    <main>
+      <p>all guidelines</p>
+      <ul>
+        {data.allFile.nodes.map((node) => (
+          <li key={node.name}>{node.name}</li>
+        ))}
+      </ul>
     </main>
   );
 };
 
 export default IndexPage;
 
-export const Head: HeadFC = () => <title>Home Page</title>;
+export const query = graphql`
+  query {
+    allFile {
+      nodes {
+        name
+      }
+    }
+  }
+`;
+
+export const Head: HeadFC = () => <Seo title="Home" />;
