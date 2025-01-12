@@ -33,5 +33,11 @@
   },
   "volta": {
     "node": "22.13.0"
+  },
+  "overrides": {
+    "gatsby": {
+      "cookie": "0.7.1",
+      "path-to-regexp": "0.1.12"
+    }
   }
 }
